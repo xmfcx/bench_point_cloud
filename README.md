@@ -60,11 +60,11 @@ This package does following:
 
 The results are about:
 - `CloudXYZI`:
-  - compute_azimuth_and_set =~ 2957 us
+  - compute_azimuth_and_set_intensity =~ 2957 us
   - sort_by_intensity =~ 11244 us
   - total =~ 14201 us
 - `CloudXYZIAD`:
-  - compute_azimuth_and_set =~ 714 us
+  - set_intensity =~ 714 us
   - sort_by_intensity =~ 11164 us
   - total =~ 11878 us
 
