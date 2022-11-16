@@ -1,0 +1,22 @@
+<launch>
+  <!-- Input -->
+  <arg name="input/data" default="~/input/data" />
+
+  <!-- Output -->
+  <arg name="output/data" default="~/output/data" />
+
+  <!-- Parameter -->
+  <arg name="config_file" default="$(find-pkg-share bench_point_cloud)/config/bench_point_cloud.param.yaml" />
+
+  <!-- Node -->
+  <node pkg="bench_point_cloud" exec="bench_point_cloud_node" name="bench_point_cloud" output="screen">
+    <!-- Input -->
+    <remap from="~/input/data" to="$(var input/data)"/>
+
+    <!-- Output -->
+    <remap from="~/output/data" to="$(var output/data)"/>
+
+    <!-- Parameter -->
+    <param from="$(var config_file)" />
+  </node>
+</launch>
