@@ -136,6 +136,7 @@ void BenchPointCloudNode::onTimer()
     const auto tp_start = std::chrono::high_resolution_clock::now();
     for (auto & p : modifier_xyzi) {
       p.intensity = std::atan2(p.y, p.x);
+      p.z = std::hypot(p.y, p.x, p.z);
     }
     const auto tp_set = std::chrono::high_resolution_clock::now();
     const auto duration_setting =
