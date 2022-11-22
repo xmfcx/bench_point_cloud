@@ -16,6 +16,8 @@
 #ifndef BENCH_POINT_CLOUD__BENCH_POINT_CLOUD_NODE_HPP__
 #define BENCH_POINT_CLOUD__BENCH_POINT_CLOUD_NODE_HPP__
 
+#include <tf2_ros/tf2_ros/static_transform_broadcaster.h>
+
 #include <chrono>
 #include <memory>
 #include <string>
@@ -23,9 +25,9 @@
 
 #include "example_interfaces/msg/int32.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include <sensor_msgs/msg/point_cloud2.hpp>
 #include <point_cloud_msg_wrapper/point_cloud_msg_wrapper.hpp>
-#include <tf2_ros/tf2_ros/static_transform_broadcaster.h>
+
+#include <sensor_msgs/msg/point_cloud2.hpp>
 
 namespace bench_point_cloud
 {
@@ -74,6 +76,12 @@ private:
     field_azimuth_generator,
     field_distance_generator>;
 
+  using GeneratorsXYZI = std::tuple<
+    point_cloud_msg_wrapper::field_x_generator,
+    point_cloud_msg_wrapper::field_y_generator,
+    point_cloud_msg_wrapper::field_z_generator,
+    point_cloud_msg_wrapper::field_intensity_generator>;
+
 
   struct PointXYZI
   {
@@ -88,9 +96,10 @@ private:
     }
   };
 
-  using CloudModifierXYZIAD = point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZIAD, GeneratorsXYZIAD>;
+  using CloudModifierXYZIAD =
+    point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZIAD, GeneratorsXYZIAD>;
 
-  using CloudModifierXYZI = point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZI>;
+  using CloudModifierXYZI = point_cloud_msg_wrapper::PointCloud2Modifier<PointXYZI, GeneratorsXYZI>;
 
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pub_cloud_xyziad_{};
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr pub_cloud_xyzi_{};

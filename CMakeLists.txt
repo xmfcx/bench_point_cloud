@@ -16,6 +16,8 @@ endif()
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
+find_package (Eigen3 3.3 REQUIRED NO_MODULE)
+
 ## Targets
 ament_auto_add_library(bench_point_cloud_node_component SHARED
   src/bench_point_cloud_node/bench_point_cloud_node.cpp
@@ -25,6 +27,8 @@ rclcpp_components_register_node(bench_point_cloud_node_component
   PLUGIN "bench_point_cloud::BenchPointCloudNode"
   EXECUTABLE bench_point_cloud_node
 )
+
+target_link_libraries(bench_point_cloud_node_component Eigen3::Eigen)
 
 ## Tests
 if(BUILD_TESTING)
